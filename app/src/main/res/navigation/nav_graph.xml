@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/singleContactFragment"
+        android:name="com.example.recyclerview.fragments.SingleContactFragment"
+        tools:layout="@layout/activity_single_contact">
+
+        <argument
+            android:name="contact"
+            app:argType="com.example.recyclerview.models.Contact" />
+    </fragment>
+    <fragment
+        android:id="@+id/formFragment2"
+        android:name="com.example.recyclerview.fragments.FormFragment"
+        android:label="Add Contact"
+        tools:layout="@layout/fragment_form" >
+    </fragment>
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.recyclerview.fragments.MainFragment"
+        android:label="Contacts"
+        tools:layout="@layout/main_fragment"
+        >
+        <action
+            android:id="@+id/action_mainFragment_to_singleContactFragment"
+            app:destination="@id/singleContactFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_formFragment2"
+            app:destination="@id/formFragment2" />
+    </fragment>
+</navigation>

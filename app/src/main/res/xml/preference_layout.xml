@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="First Section">
+        <com.takisoft.fix.support.v7.preference.SwitchPreferenceCompat
+            android:key="night_mood_preference"
+            android:title="Enable night mood"
+            />
+        <EditTextPreference
+            android:key="edit_text_preference"
+            android:title="Edit text preference"
+            android:summary="This is a summary of edit text preference"
+            />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Second category">
+        <ListPreference
+            android:key="list_preference"
+            android:title="List preference"
+            android:dialogTitle="list dialogue title"
+            android:entries="@array/list_array"
+            android:entryValues="@array/list_array"
+            />
+    </PreferenceCategory>
+
+</PreferenceScreen>
