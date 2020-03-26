@@ -1,8 +1,11 @@
 package com.example.recyclerview
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.text.TextUtils
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 
@@ -76,11 +79,15 @@ object Util {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(context, "Registration successful",  Toast.LENGTH_SHORT).show()
+                    val intent = Intent(context, MainActivity::class.java)
+                    //SO THE USER CANNOT GO BACK TO SIGN UP PAGE IF HE DOESN'T LOG OUT
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(context,intent, null)
+                    (context as Activity).finish()
                     result = true
                 } else {
                     Toast.makeText(context, "Saving not successful",  Toast.LENGTH_LONG).show()
                     FirebaseAuth.getInstance().signOut()
-
                 }
             }
         return result

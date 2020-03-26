@@ -1,13 +1,16 @@
 package com.example.recyclerview
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.*
 import kotlinx.android.synthetic.main.activity_login.*
+
 
 class LoginActivity : AppCompatActivity() {
 
@@ -25,8 +28,9 @@ class LoginActivity : AppCompatActivity() {
             val email = login_email.text.toString()
             val password = login_password.text.toString()
             if (email.isEmpty() || password.isEmpty()) {
-                Snackbar.make(view, "Fill in all fields", Snackbar.LENGTH_SHORT).show()
-                if (email.isEmpty()) login_email_layout.error = "Email cannot be empty" else  password_layout.error = "Password cannot be empty"
+               showError(view, "Fill in all fields")
+                if (email.isEmpty()) login_email_layout.error =
+                    "Email cannot be empty" else password_layout.error = "Password cannot be empty"
 
             } else {
                 progress_bar.visibility = View.VISIBLE
@@ -34,12 +38,19 @@ class LoginActivity : AppCompatActivity() {
             }
 
         }
+
+        forgot_password_link.setOnClickListener {
+            startActivity(Intent(this, ForgotPasswordActivity::class.java))
+        }
+
     }
 
     private fun logUserIn(email: String, password: String, view: View, progressbar: ProgressBar) {
         val mAuth = FirebaseAuth.getInstance()
+
         mAuth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener { task ->
+            .addOnCompleteListener(this) { task ->
+
                 if (task.isSuccessful) {
                     progressbar.visibility = View.INVISIBLE
                     val intent = Intent(this, MainActivity::class.java)
@@ -47,10 +58,31 @@ class LoginActivity : AppCompatActivity() {
                     startActivity(intent)
                     finish()
                 } else {
-                    val message = task.result.toString()
-                    Snackbar.make(view, "$message", Snackbar.LENGTH_SHORT).show()
+                    progressbar.visibility = View.INVISIBLE
+                    when (task.exception){
+                        is FirebaseAuthInvalidUserException -> {
+                            showError(view, "Invalid credentials")
+                        }
+                        is FirebaseAuthInvalidCredentialsException -> {
+                            showError(view, "Email and password do not match")
+                        }
+                        else -> {
+                            showError(view, "An error occurred. Try again after some time")
+                        }
+                    }
+
                 }
             }
+
+
+
+    }
+
+    private fun showError(view: View, message: String) {
+        val snackbar = Snackbar.make(view, message, Snackbar.LENGTH_SHORT)
+        snackbar.view.setBackgroundColor(ContextCompat.getColor(this, R.color.error))
+        snackbar.setTextColor(ContextCompat.getColor(this, R.color.background))
+        snackbar.show()
     }
 
 

@@ -53,7 +53,6 @@
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_marginTop="20dp"
-            android:background="#111010"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -72,7 +71,6 @@
                 android:id="@+id/contact_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#ffffff"
                 android:textSize="20sp"
                 android:text="@{ contact.phone_number }"
                 tools:text="08157588137" />
@@ -82,7 +80,6 @@
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_marginTop="10dp"
-            android:background="#000"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -101,7 +98,6 @@
                 android:id="@+id/contact_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#ffffff"
                 android:textSize="20sp"
                 android:text="@{ contact.email }"
                 tools:text="albertakpos@gmail.com" />

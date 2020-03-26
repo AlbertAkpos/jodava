@@ -16,11 +16,11 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.recyclerview.fragments.FormFragment
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
 
 const val GALLERY_PERMISSION = 1
 const val GALLERY = 2
-const val NAME_OF_DATABASE = "contact_database"
 
 class MainActivity : AppCompatActivity() {
 
@@ -74,14 +74,24 @@ class MainActivity : AppCompatActivity() {
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
             }
+
+            R.id.logout -> {
+                FirebaseAuth.getInstance().signOut()
+                val intent = Intent(this, LoginActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+            }
         }
         return true
     }
 
 
     override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp(appBarConfiguration) ||  super.onSupportNavigateUp()
+        super.onSupportNavigateUp()
+        return navController.navigateUp()
     }
+
+
 
 
 

@@ -11,7 +11,7 @@
         tools:layout="@layout/activity_single_contact">
 
         <argument
-            android:name="contact"
+            android:name="Jodava"
             app:argType="com.example.recyclerview.models.Contact" />
     </fragment>
     <fragment

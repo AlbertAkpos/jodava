@@ -59,9 +59,9 @@ class FormFragment : Fragment() {
                         .show()
 
                     //Clear input fields
-                    name_input.text.clear()
-                    phone_number_input.text.clear()
-                    email_input.text.clear()
+                    name_input.text?.clear()
+                    phone_number_input.text?.clear()
+                    email_input.text?.clear()
 
                     saveContact(name, email, phone_number)
 

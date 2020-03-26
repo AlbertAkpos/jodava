@@ -110,4 +110,5 @@ class SingleContactFragment : Fragment() {
         startActivity(callIntent)
     }
 
+
 }
